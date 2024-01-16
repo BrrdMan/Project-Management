@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layouts :: headFrag}"></head>
+
+<body>
+
+	<nav th:replace="~{layouts :: navFrag}"></nav>
+	<div class="container-fluid">
+		<h4>Current Employees</h4>
+		<table th:replace="~{layouts :: empFrag}"></table>
+
+		<a th:href="@{/employee/new}" class="btn btn-primary btn-sm mb-3">New
+			Employee</a>
+	</div>
+</body>
+</html>

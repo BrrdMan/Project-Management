@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:fragment="headFrag">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Layouts</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/formatting.css}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>	
+</head>
+<body>
+	<nav th:fragment="navFrag"
+		class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">Project IO</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+			<div class="navbar-nav">
+				<a class="nav-item nav-link active" href="/">Home</a> <a
+					class="nav-item nav-link" href="/projects">Projects</a> <a
+					class="nav-item nav-link" href="/employee">Employees</a>
+			</div>
+		</div>
+		<a href="/logout" class="btn btn-danger btn-sm mx-1">Logout</a>
+	</nav>
+
+	<div>
+		<h4>Current Projects</h4>
+		<table th:fragment="projFrag" class="table table-bordered table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>Project Name</th>
+					<th>Project Stage</th>
+					<th>Project Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="proj : ${projectList}">
+					<td th:text="${proj.name}" />
+					<td th:text="${proj.stage}" />
+					<td th:text="${proj.desc}" />
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div>
+		<h4>Current Employees</h4>
+		<table th:fragment="empFrag" class="table table-bordered table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Gender</th>
+					<th>Email</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="empl : ${employees}">
+					<td th:text="${empl.firstName}" />
+					<td th:text="${empl.lastName}" />
+					<td th:text="${empl.gender}" />
+					<td th:text="${empl.email}" />
+					<td class="d-flex justify-content-center">
+						<a th:href="@{/employee/update(id=${empl.empID})}" 
+						class="btn btn-info btn-sm mx-2">Update</a>
+						
+						<a th:href="@{/employee/delete(id=${empl.empID})}" 
+						class="btn btn-danger btn-sm mx-2"
+						onclick="if (!(confirm('Delete this employee?'))) return false">Delete</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

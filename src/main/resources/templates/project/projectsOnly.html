@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layouts :: headFrag}"></head>
+
+<body>
+
+	<nav th:replace="~{layouts :: navFrag}"></nav>
+	<div class="container-fluid">
+		<h4>Current Projects</h4>
+		<table class="table table-bordered table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>Project Name</th>
+					<th>Project Stage</th>
+					<th>Project Description</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="proj : ${projectList}">
+					<td th:text="${proj.name}" />
+					<td th:text="${proj.stage}" />
+					<td th:text="${proj.desc}" />
+					<td class="d-flex justify-content-center">
+						<a th:href="@{/projects/update(id=${proj.projectId})}" 
+						class="btn btn-info btn-sm mx-2">Update</a>
+						
+						<a th:href="@{/projects/delete(id=${proj.projectId})}" 
+						class="btn btn-danger btn-sm mx-2"
+						onclick="if (!(confirm('Delete this project?'))) return false">Delete</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<a th:href="@{/projects/new}" class="btn btn-primary btn-sm mb-3">New Project</a>
+	</div>
+</body>
+</html>

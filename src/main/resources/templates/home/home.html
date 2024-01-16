@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
+<head th:replace="~{layouts :: headFrag}"></head>
+
+<body>
+
+	<nav th:replace="~{layouts :: navFrag}"></nav>
+	<div class="container-fluid">
+	<h3 class="text-center">Main Dashboard</h3>
+	<p th:text="${applicationVersion}" class="text-center"></p>
+	<hr>	
+
+		<div class="row">
+			<div class="col-md-6">
+			<h4>Current Projects</h4>
+				<table th:replace="~{layouts :: projFrag}"></table>
+			</div>
+
+
+			<div class="col-md-4" id="chartCont">
+				<canvas id="myPieChart" height="50" width="50"></canvas>
+				
+				<script>let chartData = "[[${projectStatusCnt}]]"</script>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-6">
+			<h4>Current Employees</h4>
+				<table class="table table-bordered table-striped">
+					<thead class="thead-dark">
+						<tr>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Project Count</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="empl : ${employeeListProjectCnt}">
+							<td th:text="${empl.firstName}" />
+							<td th:text="${empl.lastName}" />
+							<td th:text="${empl.projectCount}" />
+						</tr>
+					</tbody>
+			</table>
+			</div>
+			<div class="col-md-6">
+			<h4>Project Completion Status</h4>
+				<table class="table table-bordered table-striped">
+				<thead class="thead-dark">
+				<tr>
+					<th>Project Stage</th>
+					<th>Project Stage Count</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="projst : ${projectstagecnt}">
+					<td th:text="${projst.label}" />
+					<td th:text="${projst.projectStageCount}" />
+				</tr>
+			</tbody>
+		</table>
+			</div>
+		</div>
+
+	</div>
+	<script th:src="@{js/myChart.js}"></script>
+</body>
+</html>
